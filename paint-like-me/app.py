@@ -18,8 +18,9 @@ def file_upload():
         image_path = os.path.join(path, filename)
         file.save(image_path)
         session['image_path'] = image_path
+        print(session['image_path'] + "is the session image path")
         
-        image_url = f'http://127.0.0.1:3000/uploaded-pictures/{filename}'
+        image_url = f'http://localhost:3000/uploaded-pictures/{filename}'
         
         return jsonify({'message': 'Image uploaded!', 'image_url': image_url})
 
@@ -62,20 +63,21 @@ def paint():
     image_path = session.get('image_path')
     
     print(image_path)
-
+    
     if not os.path.exists(image_path):
         return jsonify({'error': 'Uploaded image not found'}), 404
     
-    
     # call paint function
     source_img = plot_image(image_path)
-    img_layers = paint_layers(source_img, brush_data)
+    painting = paint_layers(source_img, brush_data)
     
-      
-    cv2.imshow("image", img_layers[num_layers-1])
+    cv2.imshow("painting", painting)
     cv2.waitKey(0)
     
-    return jsonify({'brush_data': brush_data, 'image_path': image_path}), 200
+    _, buffer = cv2.imencode('.png', painting)
+    encoded_painting = base64.b64encode(buffer).decode('utf-8')
+    
+    return jsonify({'message': 'painting complete', 'painting': encoded_painting}), 200
 
             
 # Running app

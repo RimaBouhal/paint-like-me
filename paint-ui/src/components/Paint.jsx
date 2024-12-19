@@ -1,8 +1,11 @@
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
+import Box from '@mui/material/Box';
 
 function Paint() {
+    const [painting, setPainting] = React.useState(null);
+
     const handlePaint = async () => {
         try {
             const brushResponse = await fetch('/select-brush', {
@@ -28,7 +31,7 @@ function Paint() {
             }
 
             const result = await paintResponse.json();
-            console.log('Painting result:', result);
+            setPainting(result.painting);
 
         } catch (error) {
             console.error('Error during painting operation:', error);
@@ -36,9 +39,24 @@ function Paint() {
     };
 
     return (
+        <div>
         <Button variant="contained" startIcon={<ColorLensIcon/>} onClick={handlePaint}>
             Paint
         </Button>
+        {!painting ? (
+                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+                        Your painting will be displayed here
+                    </Box>
+                ) : (
+                    <div>
+                    <img
+                        src={`data:image/png;base64,${painting}`}
+                        alt="Painting"
+                        style={{ maxWidth: '500px', maxHeight: '500px', marginTop: '20px' }}
+                    />
+                    </div>
+                )}
+        </div>
     );
 }
 

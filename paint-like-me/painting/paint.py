@@ -182,7 +182,6 @@ def paint_layers(source_img, brush):
     
     print("layer painted")
   
-  # cv2.imshow("image", layer_img[num_layers-1])
-  # cv2.waitKey(0)
-  return {"message": "Painting complete"}
-
+  painting = layer_img[num_layers-1]
+  
+  return painting

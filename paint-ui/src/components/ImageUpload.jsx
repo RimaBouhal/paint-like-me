@@ -1,5 +1,7 @@
 import React from "react";
-// import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 class FileUpload extends React.Component {
 
@@ -19,7 +21,7 @@ class FileUpload extends React.Component {
       const data = new FormData();
       data.append('file', this.uploadInput.files[0]);
   
-      fetch('http://127.0.0.1:3000/upload', {
+      fetch('http://localhost:3000/upload', {
           method: 'POST',
           body: data,
       })
@@ -34,18 +36,38 @@ class FileUpload extends React.Component {
 
     render() {
         return (
-            <form onSubmit={this.handleUploadImage}>
+            <div> 
                 <div>
-                    <input ref={(ref) => { this.uploadInput = ref; }} type="file" />                    
+                <Button
+                    component="label"
+                    role={undefined}
+                    variant="contained"
+                    tabIndex={-1}
+                    startIcon={<DriveFolderUploadIcon/>}
+                    >
+                    Upload Image
+                    <input
+                        type="file"
+                        ref={(ref) => { this.uploadInput = ref; }}
+                        onChange={this.handleUploadImage}
+                        style={{ display: "none" }}
+                    />
+                    </Button>
                 </div>
-                <div><button variant="contained">Upload</button></div>
-                {this.state.imageURL && (
+                {!this.state.imageURL ? (
+                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+                        Upload an image to get started!
+                    </Box>
+                ) : (
                     <div>
-                        <h3>Uploaded Image:</h3>
-                        <img src={this.state.imageURL} alt="Uploaded" style={{ maxWidth: '300px', maxHeight: '300px' }} />
+                        <img
+                            src={this.state.imageURL}
+                            alt="Uploaded"
+                            style={{ maxWidth: '500px', maxHeight: '500px', marginTop: '20px' }}
+                        />
                     </div>
                 )}
-            </form>
+            </div>
       );
     }
 }
