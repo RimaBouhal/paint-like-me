@@ -1,3 +1,4 @@
+import './ImageUpload.css';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ColorLensIcon from '@mui/icons-material/ColorLens';
@@ -40,22 +41,32 @@ function Paint() {
 
     return (
         <div>
-        <Button variant="contained" startIcon={<ColorLensIcon/>} onClick={handlePaint}>
-            Paint
-        </Button>
-        {!painting ? (
-                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
-                        Your painting will be displayed here
-                    </Box>
-                ) : (
-                    <div>
-                    <img
-                        src={`data:image/png;base64,${painting}`}
-                        alt="Painting"
-                        style={{ maxWidth: '500px', maxHeight: '500px', marginTop: '20px' }}
-                    />
-                    </div>
-                )}
+            <Button variant="contained" startIcon={<ColorLensIcon/>} onClick={handlePaint} sx={{borderRadius:50, my:'10px'}}>
+                Paint
+            </Button>
+            <div className="image-box">
+            {!painting ? (
+                        <Box component="section"
+                            sx={{ 
+                                p: 2,
+                                borderRadius: 2,
+                                border: '1px dotted grey',
+                                minWidth: '500px',
+                                minHeight: '500px'
+                            }}
+                        >
+                            Your painting will be displayed here
+                        </Box>
+                    ) : (
+                        <div>
+                        <img
+                            src={`data:image/png;base64,${painting}`}
+                            alt="Painting"
+                            style={{ maxWidth: '500px', maxHeight: '500px', marginTop: '20px' }}
+                        />
+                        </div>
+                    )}
+            </div>
         </div>
     );
 }

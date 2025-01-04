@@ -1,12 +1,20 @@
 import os
+import secrets
 from flask import Flask, jsonify, request, send_from_directory, session
 from werkzeug.utils import secure_filename
 from brushes.brushes import brushes
 from painting.paint import *
 
 app = Flask(__name__)
+app.secret_key = secrets.token_hex(24)
+
 path = os.path.join(os.getcwd(), 'uploaded-pictures')
 
+# Running app
+if __name__ == '__main__':
+    app.run(debug=True)
+
+# Define app routes
 @app.route('/upload', methods = ['POST'])   
 def file_upload():   
     if request.method == 'POST':
@@ -23,7 +31,6 @@ def file_upload():
         image_url = f'http://localhost:3000/uploaded-pictures/{filename}'
         
         return jsonify({'message': 'Image uploaded!', 'image_url': image_url})
-
 
 @app.route('/uploaded-pictures/<filename>')
 def uploaded_file(filename):
@@ -78,9 +85,3 @@ def paint():
     encoded_painting = base64.b64encode(buffer).decode('utf-8')
     
     return jsonify({'message': 'painting complete', 'painting': encoded_painting}), 200
-
-            
-# Running app
-if __name__ == '__main__':
-    app.secret_key = 'super secret key'
-    app.run(debug=True)

@@ -1,5 +1,11 @@
-*.png
-*__pycache__
 *.venv
-*/uploaded-pictures/
+*__pycache__
 *node_modules
+
+# Hide Images
+*.png
+*/uploaded-pictures/
+
+# Hide original Jupyter Notebook stuf
+*.inpyb
+*/.inpyb_checkpoints

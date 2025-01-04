@@ -2,22 +2,36 @@ import './App.css';
 import ImageUpload from "./components/ImageUpload";
 import PaintBrushes from './components/PaintBrushes';
 import Paint from './components/Paint';
+import Header from './components/Header';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#372A7A'
+    },
+    secondary: {
+      main: '#BBB3E5'
+    }
+  }
+});
 
 function App() {
   return (
-    <div className="App">
-        <h1>🎨Paint Like Me</h1>
-        <p>Paint Like Me is an implementation of Painterly Rendering with Curved Brush Strokes of Multiple Sizes (Hertzmann)</p>
-        <div class='flex-container'>
-          <div class="flex-child image">
-            <ImageUpload/>
+    <ThemeProvider theme={theme}>
+      <div className="App">
+          <Header></Header>
+          <div class='flex-container'>
+            <div class="flex-child image">
+              <ImageUpload/>
+            </div>
+            <div class="flex-child painting">
+              <Paint/>
+            </div>
           </div>
-          <div class="flex-child painting">
-            <Paint/>
-          </div>
-        </div>
-        <div><PaintBrushes/></div>
-    </div>
+          <div><PaintBrushes/></div>
+      </div>
+    </ThemeProvider>
   );
 }
 

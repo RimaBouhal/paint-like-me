@@ -1,4 +1,9 @@
 import { React, useState } from 'react';
+import Box from '@mui/material/Box';
+import Divider, { dividerClasses } from '@mui/material/Divider';
+import Chip from '@mui/material/Chip';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { fontWeight, height, minHeight } from '@mui/system';
 
 function PaintBrushes() {
     const [selectedValue, setSelectedValue] = useState('Pointillism');
@@ -24,22 +29,53 @@ function PaintBrushes() {
     };
 
     return (
-        <form>
-            <label>
-                <input type="radio" value="Pointillism" checked={selectedValue === 'Pointillism'} onChange={() => handleChange('Pointillism')} />
-                Pointillism
-            </label>
-            <label>
-                <input type="radio" value="Impressionism" checked={selectedValue === 'Impressionism'} onChange={() => handleChange('Impressionism')} />
-                Impressionism
-            </label>
-            <label>
-                <input type="radio" value="Expressionism" checked={selectedValue === 'Expressionism'} onChange={() => handleChange('Expressionism')} />
-                Expressionism
-            </label>
-        </form>
+        <div
+            style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                justifyContent: 'center',
+            }}>
+            <Box
+                sx={{
+                    p: 2,
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    borderRadius: '10px',
+                    boxShadow: 3,
+            }}>
+                <form>
+                    <Box sx={{ display: 'flex', gap: 1 }}>
+                        <Chip
+                            label="Pointillism"
+                            clickable
+                            color={selectedValue === 'Pointillism' ? 'primary' : 'default'}
+                            variant={selectedValue === 'Pointillism' ? 'filled' : 'outlined'}
+                            onClick={() => handleChange('Pointillism')}
+                        />
+                        <Chip
+                            label="Impressionism"
+                            clickable
+                            color={selectedValue === 'Impressionism' ? 'primary' : 'default'}
+                            variant={selectedValue === 'Impressionism' ? 'filled' : 'outlined'}
+                            onClick={() => handleChange('Impressionism')}
+                        />
+                        <Chip
+                            label="Expressionism"
+                            clickable
+                            color={selectedValue === 'Expressionism' ? 'primary' : 'default'}
+                            variant={selectedValue === 'Expressionism' ? 'filled' : 'outlined'}
+                            onClick={() => handleChange('Expressionism')}
+                        />
+                    </Box>
+                </form>
+                <Divider orientation="vertical" flexItem sx={{ borderRightWidth: 2, marginX: 2}} />
+                <Chip icon={<AddCircleIcon color='primary'/>} label="New Brush" variant="filled" color='secondary'/>
+            </Box>
+        </div>
     );
-
 }
 
 export default PaintBrushes;

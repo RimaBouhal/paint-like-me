@@ -1,3 +1,4 @@
+import './ImageUpload.css';
 import React from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -44,6 +45,7 @@ class FileUpload extends React.Component {
                     variant="contained"
                     tabIndex={-1}
                     startIcon={<DriveFolderUploadIcon/>}
+                    sx={{borderRadius:50, my:'10px'}}
                     >
                     Upload Image
                     <input
@@ -54,8 +56,10 @@ class FileUpload extends React.Component {
                     />
                     </Button>
                 </div>
+                <div className="image-box">
                 {!this.state.imageURL ? (
-                    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+                    <Box component="section" 
+                        sx={{ p: 2, borderRadius: 2, border: '1px dotted grey', minWidth: '500px', minHeight: '500px'}}>
                         Upload an image to get started!
                     </Box>
                 ) : (
@@ -67,6 +71,7 @@ class FileUpload extends React.Component {
                         />
                     </div>
                 )}
+                </div>
             </div>
       );
     }
