@@ -10,7 +10,3 @@ Every artist has their own style, some of which became the basis of entire art m
 - matplotlib 3.3.4
 - scipy 1.6.0
 - [pycairo](https://pycairo.readthedocs.io/en/latest/) 1.16.2
-
-To run my project, open up the notebook PainterlyRendering.ipynb, run the cells in order from top to bottom.
-
-(top cells implement Hertzmann's method)
