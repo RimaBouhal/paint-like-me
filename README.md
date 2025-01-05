@@ -33,5 +33,5 @@ navigate to paint-like-me/paint-like-me and start a flask venv
 ```
 
 ```
-flask --app hello run
+flask run
 ```
