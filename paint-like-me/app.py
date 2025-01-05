@@ -7,6 +7,7 @@ from painting.paint import *
 
 app = Flask(__name__)
 app.secret_key = secrets.token_hex(24)
+app.config['MAX_CONTENT_LENGTH'] = 1 * 1024 * 1024
 
 path = os.path.join(os.getcwd(), 'uploaded-pictures')
 
@@ -28,7 +29,7 @@ def file_upload():
         session['image_path'] = image_path
         print(session['image_path'] + "is the session image path")
         
-        image_url = f'http://localhost:3000/uploaded-pictures/{filename}'
+        image_url = f'http://localhost:5000/uploaded-pictures/{filename}'
         
         return jsonify({'message': 'Image uploaded!', 'image_url': image_url})
 
@@ -63,7 +64,7 @@ def select_brush():
 
         return jsonify({"message": "Got brush type successfully", "brush_data": brush_type}), 200
             
-            
+
 @app.route('/paint', methods=['POST'])
 def paint():
     brush_data = request.json.get('brushData')['brush_data']
@@ -77,11 +78,13 @@ def paint():
     # call paint function
     source_img = plot_image(image_path)
     painting = paint_layers(source_img, brush_data)
+
+    # Encode the painting as a PNG and then as Base64
+    success, buffer = cv2.imencode('.png', painting)
+    if not success:
+        return jsonify({'error': 'Failed to encode the painting'}), 500
     
-    cv2.imshow("painting", painting)
-    cv2.waitKey(0)
-    
-    _, buffer = cv2.imencode('.png', painting)
     encoded_painting = base64.b64encode(buffer).decode('utf-8')
     
-    return jsonify({'message': 'painting complete', 'painting': encoded_painting}), 200
+    # Return the painting as a Base64 string
+    return jsonify({'message': 'Painting complete', 'painting': encoded_painting}), 200

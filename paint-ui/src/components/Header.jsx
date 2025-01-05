@@ -7,7 +7,6 @@ import Toolbar from '@mui/material/Toolbar';
 import Typography from '@mui/material/Typography';
 
 function Header(props) {
-
   return (
     <Box sx={{ display: 'flex' }}>
       <CssBaseline />

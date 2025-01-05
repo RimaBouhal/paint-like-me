@@ -3,4 +3,24 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+
+    --box-width: 500px;
+    --box-height: 500px;
+
+    max-width: 500px;
+    max-height: 500px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: var(--box-width);
+    min-height: var(--box-height);
+    border: 1px dotted grey;
+    border-radius: 10px;
+}
+
+.image {
+    max-width: '100%';
+    max-height: '100%';
+    object-fit: 'contain';
 }

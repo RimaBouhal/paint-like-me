@@ -1,9 +1,8 @@
 import { React, useState } from 'react';
 import Box from '@mui/material/Box';
-import Divider, { dividerClasses } from '@mui/material/Divider';
+import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
-import { fontWeight, height, minHeight } from '@mui/system';
 
 function PaintBrushes() {
     const [selectedValue, setSelectedValue] = useState('Pointillism');

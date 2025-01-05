@@ -2,6 +2,7 @@ import './ImageUpload.css';
 import React from "react";
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
+import Alert from '@mui/material/Alert';
 import DriveFolderUploadIcon from '@mui/icons-material/DriveFolderUpload';
 
 class FileUpload extends React.Component {
@@ -17,22 +18,31 @@ class FileUpload extends React.Component {
     }
 
     handleUploadImage(ev) {
-      ev.preventDefault();
+        ev.preventDefault();
+        this.setState({ error: null });
+
+        const file = this.uploadInput.files[0];
+        const maxSize = 1 * 1024 * 1024; // 1MB in bytes
+        
+        if (file.size > maxSize) {
+            this.setState({ error: "File size exceeds the 1MB limit." });
+            return;
+        }
   
-      const data = new FormData();
-      data.append('file', this.uploadInput.files[0]);
-  
-      fetch('http://localhost:3000/upload', {
-          method: 'POST',
-          body: data,
-      })
-      .then((response) => response.json())
-      .then((body) => {
-          this.setState({ imageURL: body.image_url });
-      })
-      .catch((error) => {
-          console.error('Error uploading image:', error);
-      });
+        const data = new FormData();
+        data.append('file', this.uploadInput.files[0]);
+
+        fetch('http://localhost:3000/upload', {
+            method: 'POST',
+            body: data,
+        })
+        .then((response) => response.json())
+        .then((body) => {
+            this.setState({ imageURL: body.image_url });
+        })
+        .catch((error) => {
+            console.error('Error uploading image:', error);
+        });
     }
 
     render() {
@@ -56,18 +66,20 @@ class FileUpload extends React.Component {
                     />
                     </Button>
                 </div>
+                {this.state.error && (
+                    <Alert severity="error" style={{ color: 'red', my:2}}>{this.state.error}</Alert>
+                )}
                 <div className="image-box">
                 {!this.state.imageURL ? (
-                    <Box component="section" 
-                        sx={{ p: 2, borderRadius: 2, border: '1px dotted grey', minWidth: '500px', minHeight: '500px'}}>
+                    <Box component="section">
                         Upload an image to get started!
                     </Box>
                 ) : (
                     <div>
                         <img
+                            className='image'
                             src={this.state.imageURL}
                             alt="Uploaded"
-                            style={{ maxWidth: '500px', maxHeight: '500px', marginTop: '20px' }}
                         />
                     </div>
                 )}

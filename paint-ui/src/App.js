@@ -3,7 +3,7 @@ import ImageUpload from "./components/ImageUpload";
 import PaintBrushes from './components/PaintBrushes';
 import Paint from './components/Paint';
 import Header from './components/Header';
-import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 const theme = createTheme({
   palette: {
