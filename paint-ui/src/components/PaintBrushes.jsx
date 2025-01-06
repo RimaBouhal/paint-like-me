@@ -2,7 +2,7 @@ import { React, useState } from 'react';
 import Box from '@mui/material/Box';
 import Divider from '@mui/material/Divider';
 import Chip from '@mui/material/Chip';
-import AddCircleIcon from '@mui/icons-material/AddCircle';
+import SettingsModal from './SettingsModal';
 
 function PaintBrushes() {
     const [selectedValue, setSelectedValue] = useState('Pointillism');
@@ -71,7 +71,7 @@ function PaintBrushes() {
                     </Box>
                 </form>
                 <Divider orientation="vertical" flexItem sx={{ borderRightWidth: 2, marginX: 2}} />
-                <Chip icon={<AddCircleIcon color='primary'/>} label="New Brush" variant="filled" color='secondary'/>
+                <SettingsModal></SettingsModal>
             </Box>
         </div>
     );
