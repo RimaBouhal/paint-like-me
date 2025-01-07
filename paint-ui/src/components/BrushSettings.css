@@ -1,0 +1,14 @@
+.modal-buttons {
+    display: flex;
+    justify-content: flex-end;
+}
+
+
+.slider-settings {
+    display: flex;
+    justify-content: center;
+}
+
+.settings-label {
+    display: flex;
+}
