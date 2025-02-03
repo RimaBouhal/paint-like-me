@@ -41,13 +41,17 @@ function Paint() {
         }
     };
 
+    const downloadPainting = async() => {
+        // TODO
+    }
+
     return (
         <div>
             <div>
                 <Button variant="contained" startIcon={<ColorLensIcon/>} onClick={handlePaint} sx={{borderRadius:50, my:'10px'}}>
                     Paint
                 </Button>
-                <Button variant="contained" startIcon={<DownloadIcon/>} onClick={handlePaint} sx={{borderRadius:50, my:'10px', mx:1}}>
+                <Button variant="contained" startIcon={<DownloadIcon/>} onClick={downloadPainting} sx={{borderRadius:50, my:'10px', mx:1}}>
                     Download Painting
                 </Button>
             </div>
@@ -58,7 +62,8 @@ function Paint() {
                         </Box>
                     ) : (
                         <div>
-                        <img className='image'
+                        <img
+                            className='image'
                             src={`data:image/png;base64,${painting}`}
                             alt="Painting"
                         />
