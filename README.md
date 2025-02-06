@@ -28,10 +28,17 @@ navigate to paint-like-me/paint-like-me and start a flask venv
 [Flask Instructions](https://flask.palletsprojects.com/en/stable/quickstart/)
 
 ```
-. .venv/bin/activate   \\ Windows
-.venv\Scripts\activate \\ macOS or Linux
+. .venv/bin/activate   \\ macOS or Linux
+.venv\Scripts\activate \\ Windows
 ```
 
+Within the activated environment, use the following command to install Flask:
 ```
-flask run
+$ pip install Flask
+```
+
+And run:
+```
+$ pip install -r requirements.txt
+$ flask run
 ```

@@ -37,7 +37,6 @@ def file_upload():
 def uploaded_file(filename):
     return send_from_directory(path, filename)
 
-
 @app.route('/select-brush', methods=['POST', 'GET'])
 def select_brush():
     if request.method == 'POST':
@@ -64,7 +63,6 @@ def select_brush():
 
         return jsonify({"message": "Got brush type successfully", "brush_data": brush_type}), 200
             
-
 @app.route('/paint', methods=['POST'])
 def paint():
     brush_data = request.json.get('brushData')['brush_data']

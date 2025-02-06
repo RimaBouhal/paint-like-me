@@ -50,7 +50,7 @@ def paint_layer(canvas, refference_img, radius, brush):
         y1, x1 = np.unravel_index(indices, M.shape)
         
         # make brush stroke
-        s = make_spline_stroke(radius, x+x1, y+y1, refference_img, canvas, brush["min_stroke_length"], brush["max_stroke_length"], gradient_x, gradient_y)
+        s = make_spline_stroke(radius, x+x1, y+y1, refference_img, canvas, brush, gradient_x, gradient_y)
         S.append(s)
 
   # paint all strokes in S on the canvas (randomorder)
@@ -90,14 +90,14 @@ def paint_strokes(s, refference_img, canvas_context):
   canvas_context.stroke()
   
   
-def make_spline_stroke(radius, x0, y0, refference_img, canvas, min_stroke_length, max_stroke_length, gradient_x, gradient_y):
+def make_spline_stroke(radius, x0, y0, refference_img, canvas, brush, gradient_x, gradient_y):
   # K = a new stroke with radius R and color strokeColor
   K = [(y0, x0)]
   x,y = x0, y0
   lastDx,lastDy = (0,0)
-  
-  # pointilism has a stroke len of 0, so add 1
-  max_stroke_length += 1
+
+  min_stroke_length = brush["min_stroke_length"]
+  max_stroke_length = brush["max_stroke_length"] + 1
   
   for i in range(1, max_stroke_length):
     canvas_color_diff = np.linalg.norm(refference_img[y,x] - canvas[y,x])
